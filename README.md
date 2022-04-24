@@ -1,4 +1,4 @@
-### BCA 4th sem project 
+### Blog Management System
 
 ##### How to use:
 ```

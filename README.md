@@ -1,4 +1,4 @@
-### Blog Management System
+### BCA 4th sem project 
 
 ##### How to use:
 ```
@@ -8,7 +8,8 @@ create database blog
 perform initial migration from blog.sql
 ```
 
-##### Working on:
+##### Task remaining:
 ```
-delete posts in myPosts.php
+delete users post by admin
+delete own message inbox by all
 ```

@@ -5,6 +5,21 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 include '../include/connection.php';
+if (isset($_GET['username'])) {
+    $query = 'SELECT admin_photo FROM admins WHERE username = :username';
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':username', $_GET['username']);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    if (!empty($row['admin_photo'])) {
+        unlink(realpath(dirname(getcwd())) . "/assets/admins/" . $row['admin_photo']);
+    }
+    $query = 'DELETE FROM admins WHERE username = :username';
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':username', $_GET['username']);
+    $stmt->execute();
+    exit();
+}
 include '../include/header.php';
 ?>
 <div class="container-fluid">
@@ -15,7 +30,7 @@ include '../include/header.php';
             ?>
         </div>
         <div style="position: absolute; z-index: -1;" class="offset-lg-3 offset-xl-2 col-lg-9 col-xl-10 p-0">
-            <ul class="list-group">
+            <ul class="list-group mt-5 mt-lg-0">
                 <?php
                 // Fetch users
                 isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
@@ -36,7 +51,7 @@ include '../include/header.php';
                         $st->bindParam(':username', $_SESSION['admin']);
                         $st->execute();
                         if ($st->fetch()['admin_type'] == 1) {
-                            echo $row['admin_type'] == 0 ? '<i class="fa-solid fa-trash-can ms-3"></i>' : '';
+                            echo $row['admin_type'] == 0 ? '<i onclick="deleteUser(event)" class="fa-solid fa-trash-can ms-3"></i>' : '';
                         };
                         ?>
                     </li>
@@ -87,6 +102,11 @@ include '../include/header.php';
         </div>
     </div>
     <script>
+        const deleteUser = (event) => {
+            let username = event.target.parentElement.innerText.split(' ')[0]
+            let url = '/project/dashboard/users.php?username=' + username
+            fetch(url).then(res => window.location.replace("users.php"))
+        }
         const handleMessage = (event) => {
             const form = document.getElementById('messageForm')
             const formData = new FormData(form)

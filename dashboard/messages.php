@@ -43,7 +43,7 @@ include '../include/header.php';
             ?>
         </div>
         <div style="position: absolute; z-index: -1;" class="offset-lg-3 offset-xl-2 col-lg-9 col-xl-10 p-0">
-            <ul class="list-group">
+            <ul class="list-group mt-5 mt-lg-0">
                 <?php
                 // Fetch messages
                 isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
@@ -54,7 +54,7 @@ include '../include/header.php';
                 $stmt->bindParam(':sent_to', $_SESSION['admin']);
                 $stmt->execute();
                 $totalPages = ceil($stmt->rowCount() / $limit);
-                echo $stmt->rowCount() == 0 ? '<div class="alert alert-warning">You have no messages.</div>' : '<h3 class="bg-warning text-center">All messages</h3>';
+                echo $stmt->rowCount() == 0 ? '<div class="alert alert-warning">You have no messages.</div>' : '<h3 class="bg-warning text-center mt-2 mt-lg-0">All messages</h3>';
                 $colors = ['dark', 'info', 'secondary', 'success', 'danger', 'primary'];
                 $count = 1;
                 while ($row = $stmt->fetch()) {

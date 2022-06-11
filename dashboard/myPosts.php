@@ -51,7 +51,7 @@ if (isset($_GET['post_id'])) {
 
                 while ($row = $stmt->fetch()) {
                 ?>
-                    <div class="col-5 m-3">
+                    <div class="col-sm-5 m-3 mt-5 mt-lg-0">
                         <div class="card">
                             <img src="<?= '/project/assets/' . $row['picture']; ?>" class="card-img-top" alt="">
                             <div class="card-body">
